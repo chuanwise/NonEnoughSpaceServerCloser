@@ -16,7 +16,7 @@ Bukkit 1.7 或兼容它的客户端
 
 ## 快速开始
 
-只需要从 [RELEASE](./releases) 处下载最新的插件 `JAR`，将其放在服务器的 `plugins` 文件夹后重启服务器（或使用 `PlugMan` 载入）即可。
+只需要从 [RELEASE](https://github.com/Chuanwise/NonEnoughSpaceServerCloser/releases) 处下载最新的插件 `JAR`，将其放在服务器的 `plugins` 文件夹后重启服务器（或使用 `PlugMan` 载入）即可。
 
 默认配置满足大部分需求，一般无需另外配置。
 
@@ -61,6 +61,27 @@ min-usable-bytes: 1024
 本插件基于 `MIT` 许可证开源，请遵从此开源协议使用本插件及相关代码。
 
 ```
+MIT License
+
+Copyright (c) 2022 CHUANWISE
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
 
 ## 画大饼
