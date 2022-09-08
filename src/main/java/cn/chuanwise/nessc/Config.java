@@ -14,7 +14,7 @@ public class Config {
     
     private static final String VERSION_PATH = "version";
     private static final String ERROR_MESSAGE_PATH = "message.error";
-    private static final String BROADCAST_MESSAGE_PATH = "message.broadcast";
+    private static final String KICK_MESSAGE_PATH = "message.kick";
     private static final String ENABLE_PATH = "enable";
     
     public static Config getInstance() {
@@ -49,7 +49,7 @@ public class Config {
         final Config config = new Config();
         config.enable = configuration.getBoolean(ENABLE_PATH);
         config.errorMessage = configuration.getString(ERROR_MESSAGE_PATH);
-        config.broadcastMessage = configuration.getString(BROADCAST_MESSAGE_PATH);
+        config.kickMessage = configuration.getString(KICK_MESSAGE_PATH);
         return config;
     }
     
@@ -68,7 +68,7 @@ public class Config {
     
     private String errorMessage;
     
-    private String broadcastMessage = "[NESSC] 服务器外存不足，请立刻联系管理员！";
+    private String kickMessage = "[NESSC] 服务器外存不足，请立刻联系管理员！";
     
     public boolean isEnable() {
         return enable;
@@ -89,7 +89,7 @@ public class Config {
         configuration.set(VERSION_PATH, "1.0");
         configuration.set(ENABLE_PATH, enable);
         configuration.set(ERROR_MESSAGE_PATH, errorMessage);
-        configuration.set(BROADCAST_MESSAGE_PATH, broadcastMessage);
+        configuration.set(KICK_MESSAGE_PATH, kickMessage);
         configuration.save(file);
     }
     
@@ -112,11 +112,11 @@ public class Config {
         this.errorMessage = errorMessage;
     }
     
-    public String getBroadcastMessage() {
-        return broadcastMessage;
+    public String getKickMessage() {
+        return kickMessage;
     }
     
-    public void setBroadcastMessage(String broadcastMessage) {
-        this.broadcastMessage = broadcastMessage;
+    public void setKickMessage(String kickMessage) {
+        this.kickMessage = kickMessage;
     }
 }

@@ -51,7 +51,7 @@ public class CloserOutputStream
     public void checkErrLog(String log) {
     
         final Config config = Config.getInstance();
-        final String broadcastMessage = config.getBroadcastMessage();
+        final String kickMessage = config.getKickMessage();
         
         if (!config.isEnable()) {
             return;
@@ -63,7 +63,7 @@ public class CloserOutputStream
         if (pattern.matcher(log.trim()).matches()) {
             final Server server = NESSC.getInstance().getServer();
             for (Player onlinePlayer : server.getOnlinePlayers()) {
-                onlinePlayer.kickPlayer(broadcastMessage);
+                onlinePlayer.kickPlayer(kickMessage);
             }
             
             NESSC.getInstance().getLogger().info("non enough spaces, shutdown server!");
