@@ -1,10 +1,13 @@
-package cn.chuanwise.nessc;
+package cn.chuanwise.nessc.config;
 
+import cn.chuanwise.nessc.NESSC;
 import cn.chuanwise.nessc.util.Files;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -12,10 +15,13 @@ import java.util.Objects;
 public class Config {
     
     private static final String VERSION_PATH = "version";
-    private static final String VERSION = "1.0";
+    private static final String VERSION = "2";
     
+    @Deprecated
     private static final String KICK_MESSAGE_PATH = "kick-message";
-    private static final String DEFAULT_KICK_MESSAGE = "§7[§3§lNESSC§7] §b服务器外存不足，请立刻联系管理员以修复此问题！";
+    @Deprecated
+    private static final String DEFAULT_KICK_MESSAGE = "§7[§4§lNESSC§7] §c服务器外存不足，请立刻联系管理员以修复此问题！";
+    @Deprecated
     private static String kickMessage = DEFAULT_KICK_MESSAGE;
     
     private static final String ENABLE_PATH = "enable";
@@ -40,13 +46,18 @@ public class Config {
         final File configFile = new File(Files.getExistedDataDirectory(), "config.yml");
         
         if (configFile.isFile()) {
-            final FileConfiguration configuration = YamlConfiguration.loadConfiguration(configFile);
+            final FileConfiguration configuration = YamlConfiguration.loadConfiguration(new FileReader(configFile));
     
             final String version = configuration.getString(VERSION_PATH);
-            if (Objects.equals(version, "1.0")) {
-                loadV1Config(configuration);
-            } else {
-                throw new NoSuchElementException("can not load config file with version: " + version);
+            switch (version) {
+                case "1.0":
+                    loadV1Config(configuration);
+                    break;
+                case "2":
+                    loadV2Config(configuration);
+                    break;
+                default:
+                    throw new NoSuchElementException("can not load config file with version: " + version);
             }
         } else {
             save();
@@ -61,7 +72,11 @@ public class Config {
     public static void save() throws IOException {
         final FileConfiguration configuration = new YamlConfiguration();
         saveConfig(configuration);
-        configuration.save(new File(Files.getExistedDataDirectory(), "config.yml"));
+    
+        final File file = new File(Files.getExistedDataDirectory(), "config.yml");
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            fileWriter.write(configuration.saveToString());
+        }
     }
     
     public static String getKickMessage() {
@@ -96,12 +111,20 @@ public class Config {
         Config.checkInterval = checkInterval;
     }
     
+    @SuppressWarnings("all")
     private static void loadV1Config(FileConfiguration configuration) {
+        loadV2Config(configuration);
+        
+        // read kick message and add to sentence
+        final String kickMessage = configuration.getString(KICK_MESSAGE_PATH, DEFAULT_KICK_MESSAGE);
+        Messages.sentences.put("kick-message", Messages.Sentence.of(kickMessage));
+    }
+    
+    private static void loadV2Config(FileConfiguration configuration) {
         enable = configuration.getBoolean(ENABLE_PATH, DEFAULT_ENABLE);
-        kickMessage = configuration.getString(KICK_MESSAGE_PATH, DEFAULT_KICK_MESSAGE);
         minUsableBytes = configuration.getInt(MIN_USABLE_BYTES_PATH, DEFAULT_MIN_USABLE_BYTES);
         checkInterval = configuration.getLong(CHECK_INTERVAL_PATH, DEFAULT_CHECK_INTERVAL);
-        
+    
         if (minUsableBytes <= 0) {
             NESSC.getInstance().getLogger().warning("illegal " + MIN_USABLE_BYTES_PATH + ": " + minUsableBytes + ", " +
                 "use default '" + DEFAULT_MIN_USABLE_BYTES + "'");

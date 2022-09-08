@@ -1,0 +1,49 @@
+lack-permission: '§7[§4§bNESSC§7] §c你，莫得权限：{1}'
+save-config-fail: '§7[§4§lNESSC§7] §c无法保存插件配置文件！'
+
+function-enabled: '§7[§2§lNESSC§7] §a插件功能已启动，将§l会§a在外存耗尽时关闭服务器。'
+function-disabled: '§7[§6§lNESSC§7] §e插件功能已关闭，将§l不会§e在外存耗尽时关闭服务器。'
+
+config-reload-successfully: '§7[§2§lNESSC§7] §a插件配置已全部重载'
+config-reload-fail: '§7[§4§lNESSC§7] §c无法重载插件配置：{1}'
+
+plugin-info: |
+  §7[§3§lNESSC§7] §b插件信息§r
+  §7-> §b全名§7：§fNonEnoughSpaceServerCloser§r
+  §7-> §b缩写§7：§fNESSC§r
+  §7-> §b版本§7：§f{1}§r
+  §7-> §b作者§7：§fChuanwise§r
+  §7-> §bQ 群§7：§f1028959718§r
+  §7-> §b仓库§7：§fhttps://github.com/Chuanwise/NonEnoughSpaceServerCloser§r
+plugin-usage: |
+  §7[§3§lNESSC§7] §b用法§r
+  "§7-> /§bnessc §7- §f启动或关闭插件功能§r
+  "§7-> /§bnessc reload §7- §f重载插件配置§r
+  "§7-> /§bnessc info §7- §f显示插件信息§r
+  "§7-> /§bnessc test §7- §f耗尽外存空间以测试功能§r
+  "§7-> /§bnessc §c[others] §7- §f你已经发现它了 :D§r
+
+testing-will-cause-shutdown: '§7[§4§lNESSC§7] §c进行本次测试将导致服务器被关闭！'
+can-not-create-test-file: '§7[§4§lNESSC§7] §c无法创建测试文件，测试被停止'
+
+saving-data-before-testing: '§7[§3§lNESSC§7] §b正在保存服务器数据以免丢失'
+testing: '§7[§6§lNESSC§7] §e正在耗尽外存资源。测试结束后，插件将删除产生的大文件'
+fail-to-start-test: '§7[§4§lNESSC§7] §c启动测试失败'
+function-has-not-enable-yet: '§7[§4§lNESSC§7] §c插件功能尚未开启，请使用 /nessc 启动后再测试'
+
+logo-ascii: |
+  _  _ ___ ___ ___  ___ 
+  | \| | __/ __/ __|/ __|
+  | .` | _|\__ \__ \ (__ 
+  |_|\_|___|___/___/\___|
+        §8>§7>§f> §b§l1.1 §f<§7<§8§r
+
+closing-server: '§7[§4§lNESSC§7] §c外存空间不足！当前可用外存空间为 {1}B，低于所允许的最小值 {2}B，关闭服务器！'
+
+config-loaded: '§7[§2§lNESSC§7] §a配置信息全部载入完成'
+fail-to-load-config: '§7[§4§lNESSC§7] §c无法载入配置信息：{1}'
+
+plugin-enabled: '§7[§2§lNESSC§7] §aNonEnoughSpaceServerCloser 已启动！'
+plugin-disabled: '§7[§2§lNESSC§7] §aNonEnoughSpaceServerCloser 已关闭，期待我们的下一次重逢！'
+
+kick-message: '§7[§4§lNESSC§7] §c服务器外存资源耗尽，无法继续正常提供服务，请立即联系管理员！'

@@ -1,7 +1,8 @@
 package cn.chuanwise.nessc.task;
 
-import cn.chuanwise.nessc.Config;
+import cn.chuanwise.nessc.config.Config;
 import cn.chuanwise.nessc.NESSC;
+import cn.chuanwise.nessc.config.Messages;
 import cn.chuanwise.nessc.event.NonEnoughSpaceEvent;
 import cn.chuanwise.nessc.util.Files;
 import org.bukkit.Server;
@@ -43,12 +44,11 @@ public class Detector
                 if (!event.isCancelled()) {
                     closing.set(true);
                     
-                    final Logger logger = NESSC.getInstance().getLogger();
-                    logger.severe("insufficient space (< " + minUsableBytes + "B), shutdown server!");
+                    server.getConsoleSender().sendMessage(Messages.format("closing-server", usableSpace, minUsableBytes));
                 
                     final Collection<? extends Player> onlinePlayers = server.getOnlinePlayers();
                     for (Player onlinePlayer : onlinePlayers) {
-                        onlinePlayer.kickPlayer(Config.getKickMessage());
+                        onlinePlayer.kickPlayer(Messages.format("kick-message"));
                     }
                 
                     server.shutdown();

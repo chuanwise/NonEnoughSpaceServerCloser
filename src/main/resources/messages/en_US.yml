@@ -1,0 +1,49 @@
+lack-permission: '§7[§4§bNESSC§7] §cPermission required: {1}'
+save-config-fail: '§7[§4§lNESSC§7] §cCan not save configuration files!'
+
+function-enabled: '§7[§2§lNESSC§7] §aPlugin function enabled, server §lwill§a be closed when there is no enough space'
+function-disabled: '§7[§6§lNESSC§7] §ePlugin function DISABLED, server §lwill NOT§ebe closed when there is no enough space'
+
+config-reload-successfully: '§7[§2§lNESSC§7] §aAll configuration files reloaded!'
+config-reload-fail: '§7[§4§lNESSC§7] §cCan not reload configuration file: {1}'
+
+plugin-info: |
+  §7[§3§lNESSC§7] §bPlugin info§r
+  §7-> §bComplete name§7：§fNonEnoughSpaceServerCloser§r
+  §7-> §bSimple name§7：§fNESSC§r
+  §7-> §bVersion§7：§f{1}§r
+  §7-> §bAuthor§7：§fChuanwise§r
+  §7-> §bQQ Group§7：§f1028959718§r
+  §7-> §bRepository§7：§fhttps://github.com/Chuanwise/NonEnoughSpaceServerCloser§r
+plugin-usage: |
+  §7[§3§lNESSC§7] §bPlugin usages§r
+  "§7-> /§bnessc §7- §fEnable or disable plugin function§r
+  "§7-> /§bnessc reload §7- §fReload plugin configuration files§r
+  "§7-> /§bnessc info §7- §fDisplay plugin info§r
+  "§7-> /§bnessc test §7- §fTest plugin function (will cause the shutdown of server)§r
+  "§7-> /§bnessc §c[others] §7- §fYou already found it :D§r
+
+testing-will-cause-shutdown: '§7[§4§lNESSC§7] §cServer will be closed caused by testing!'
+can-not-create-test-file: '§7[§4§lNESSC§7] §cCan not create testing file, test stopped!'
+
+saving-data-before-testing: '§7[§3§lNESSC§7] §bSaving server data to prevent data damage...'
+testing: '§7[§6§lNESSC§7] §eTesting... after done, all big files generated for testing will be deleted automatically'
+fail-to-start-test: '§7[§4§lNESSC§7] §cFail to start test'
+function-has-not-enable-yet: '§7[§4§lNESSC§7] §cPlugin function disabled, use /nessc first'
+
+logo-ascii: |
+  _  _ ___ ___ ___  ___ 
+  | \| | __/ __/ __|/ __|
+  | .` | _|\__ \__ \ (__ 
+  |_|\_|___|___/___/\___|
+        §8>§7>§f> §b§l1.1 §f<§7<§8§r
+
+closing-server: '§7[§4§lNESSC§7] §cInsufficient space! current usable space: {1}B, which is smaller than min usable space: {2}B, stop server!'
+
+config-loaded: '§7[§2§lNESSC§7] §aConfiguration file loaded successfully!'
+fail-to-load-config: '§7[§4§lNESSC§7] §cCan not load configuration file: {1}'
+
+plugin-enabled: '§7[§2§lNESSC§7] §aNonEnoughSpaceServerCloser enabled!'
+plugin-disabled: '§7[§2§lNESSC§7] §aNonEnoughSpaceServerCloser disabled!'
+
+kick-message: '§7[§4§lNESSC§7] §cInsufficient space! The server will be closed. Ask server administrators for helping as fast as possible!'

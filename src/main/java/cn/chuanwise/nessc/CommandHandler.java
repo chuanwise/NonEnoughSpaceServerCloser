@@ -1,12 +1,13 @@
 package cn.chuanwise.nessc;
 
+import cn.chuanwise.nessc.config.Config;
+import cn.chuanwise.nessc.config.Messages;
 import cn.chuanwise.nessc.util.Files;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,8 +33,9 @@ public class CommandHandler
         
         if (strings.length == 0) {
     
-            if (!commandSender.hasPermission("nessc.reverse")) {
-                commandSender.sendMessage("§7[§4§lNESSC§7] §c你，莫得权限 §7- §fnessc.reverse");
+            final String reversePermission = "nessc.reverse";
+            if (!commandSender.hasPermission(reversePermission)) {
+                commandSender.sendMessage(Messages.format("lack-permission", reversePermission));
                 return true;
             }
             
@@ -43,15 +45,15 @@ public class CommandHandler
             try {
                 Config.save();
             } catch (IOException e) {
-                commandSender.sendMessage("§7[§4§lNESSC§7] §e无法保存插件配置文件！");
+                commandSender.sendMessage(Messages.format("save-config-fail"));
                 e.printStackTrace();
                 return true;
             }
     
             if (setTo) {
-                commandSender.sendMessage("§7[§2§lNESSC§7] §a插件功能已启动，将§l会§a在外存耗尽时关闭服务器。");
+                commandSender.sendMessage(Messages.format("function-enabled"));
             } else {
-                commandSender.sendMessage("§7[§6§lNESSC§7] §e插件功能已关闭，将§l不会§e在外存耗尽时关闭服务器。");
+                commandSender.sendMessage(Messages.format("function-disabled"));
             }
             return true;
         }
@@ -59,47 +61,45 @@ public class CommandHandler
         if (strings.length == 1) {
             switch (strings[0]) {
                 case "reload":
-                    if (!commandSender.hasPermission("nessc.reload")) {
-                        commandSender.sendMessage("§7[§4§lNESSC§7] §c你，莫得权限 §7- §fnessc.reload");
+                    final String reloadPermission = "nessc.reload";
+                    if (!commandSender.hasPermission(reloadPermission)) {
+                        commandSender.sendMessage(Messages.format("lack-permission", reloadPermission));
                         return true;
                     }
                     
                     try {
+                        Messages.load();
                         Config.load();
-                        commandSender.sendMessage("§7[§2§lNESSC§7] §a插件配置已重载");
+                        
+                        commandSender.sendMessage(Messages.format("config-reload-successfully"));
                     } catch (IOException e) {
-                        commandSender.sendMessage("§7[§4§lNESSC§7] §c重载配置时出现异常，详见控制台");
+                        commandSender.sendMessage(Messages.format("config-reload-fail", e));
                         e.printStackTrace();
                     }
                     return true;
                 case "info":
-                    commandSender.sendMessage("§7[§3§lNESSC§7] §b插件信息\n" +
-                        "§7-> §b全名§7：§fNonEnoughSpaceServerCloser\n" +
-                        "§7-> §b缩写§7：§fNESSC\n" +
-                        "§7-> §b版本§7：§f1.0\n" +
-                        "§7-> §b作者§7：§fChuanwise\n" +
-                        "§7-> §bQ 群§7：§f1028959718\n" +
-                        "§7-> §b仓库§7：§fhttps://github.com/Chuanwise/NonEnoughSpaceServerCloser");
+                    commandSender.sendMessage(Messages.format("plugin-info", "1.1"));
                     return true;
                 case "test":
-                    if (!commandSender.hasPermission("nessc.test")) {
-                        commandSender.sendMessage("§7[§4§lNESSC§7] §c你，莫得权限 §7- §fnessc.test");
+                    final String testPermission = "nessc.test";
+                    if (!commandSender.hasPermission(testPermission)) {
+                        commandSender.sendMessage(Messages.format("lack-permission", testPermission));
                         return true;
                     }
     
                     if (Config.isEnable()) {
-                        commandSender.sendMessage("§7[§4§lNESSC§7] §c进行本次测试将导致服务器被关闭！");
+                        commandSender.sendMessage(Messages.format("testing-will-cause-shutdown"));
         
                         final File file;
                         try {
                             file = Files.getExistedFile(new File(Files.getExistedDataDirectory(), ".test-big-file"), "test file");
                         } catch (IOException e) {
-                            commandSender.sendMessage("§7[§4§lNESSC§7] §c无法创建测试文件 test，测试被停止");
+                            commandSender.sendMessage(Messages.format("can-not-create-test-file"));
                             e.printStackTrace();
                             return true;
                         }
     
-                        commandSender.sendMessage("§7[§3§lNESSC§7] §b正在保存服务器数据以免丢失");
+                        commandSender.sendMessage(Messages.format("saving-data-before-testing"));
 
                         // save players
                         NESSC.getInstance().getServer().savePlayers();
@@ -112,7 +112,7 @@ public class CommandHandler
                         NESSC.getInstance().getServer().getScheduler().runTaskAsynchronously(NESSC.getInstance(), () -> {
                             try (OutputStream outputStream = new FileOutputStream(file)) {
     
-                                commandSender.sendMessage("§7[§6§lNESSC§7] §e正在耗尽外存资源。测试结束后，插件将删除产生的大文件");
+                                commandSender.sendMessage(Messages.format("testing"));
     
                                 byte[] bytes = new byte[(int) Config.getMinUsableBytes()];
                                 while (!NESSC.getInstance().getDetector().getClosing().get()) {
@@ -122,14 +122,14 @@ public class CommandHandler
                                     }
                                 }
                             } catch (IOException exception) {
-                                commandSender.sendMessage("§7[§4§lNESSC§7] §c启动测试失败");
+                                commandSender.sendMessage(Messages.format("fail-to-start-test"));
                                 exception.printStackTrace();
                             } finally {
                                 file.delete();
                             }
                         });
                     } else {
-                        commandSender.sendMessage("§7[§4§lNESSC§7] §c插件功能尚未开启，请使用 /nessc 启动后再测试");
+                        commandSender.sendMessage(Messages.format("function-has-not-enable-yet"));
                     }
                     return true;
             }
@@ -141,13 +141,7 @@ public class CommandHandler
     }
     
     private void displayUsage(CommandSender commandSender) {
-        commandSender.sendMessage("§7[§3§lNESSC§7] §b用法\n" +
-            "§7-> /§bnessc §7- §f启动或关闭插件功能\n" +
-            "§7-> /§bnessc reload §7- §f重载插件配置\n" +
-            "§7-> /§bnessc info §7- §f显示插件信息\n" +
-            "§7-> /§bnessc test throw §7- §f抛出异常以测试功能\n" +
-            "§7-> /§bnessc test write §7- §f耗尽外存空间以测试功能\n" +
-            "§7-> /§bnessc §c[others] §7- §f你已经发现它了 :D");
+        commandSender.sendMessage(Messages.format("plugin-usage"));
     }
     
     @Override
