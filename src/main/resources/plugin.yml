@@ -1,0 +1,8 @@
+name: NonEnoughSpaceServerCloser
+version: 1.0
+main: cn.chuanwise.nessc.NESSC
+author: Chuanwise
+
+commands:
+  nessc:
+    description: All commands of NonEnoughSpaceServerCloser
